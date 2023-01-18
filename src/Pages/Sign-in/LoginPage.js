@@ -1,14 +1,82 @@
-import { Link } from "react-router-dom";
-import { Page, Title, InputsLogin, SignIn } from "./styled"
+import { useContext, useEffect, useState } from "react";
+import { ThreeDots } from "react-loader-spinner";
+import { Link, useNavigate } from "react-router-dom";
+import Context from "../../components/Context/Context";
+import { Page, Title, InputsLogin, SignIn } from "./styled";
+import axios from "axios";
 
 const LoginPage = () => {
+    const { resLogin, setResLogin } = useContext(Context);
+    const navigate = useNavigate();
+    const [loginStatus, setLoginStatus] = useState(false);
+    const [loginData, setLoginData] = useState({
+        password: "",
+        email: ""
+    });
+
+    // useEffect(() => {
+    //     if (resLogin !== null) {
+    //      checar se o login ainda existe!!!!
+    //          navigate("/hoje")
+    //     }
+    // }, [])
+
+    function handleInput(e) {
+        setLoginData({ ...loginData, [e.target.name]: e.target.value });
+    }
+
+    function sendRequest(e) {
+        e.preventDefault();
+        setLoginStatus(true);
+        navigate("/home");
+        // axios.post(`${APIURL}/login`, loginData)
+        //     .then((res) => {
+        //         setLoginStatus(false);
+        //         setResLogin(res.data);
+        //         localStorage.setItem("user", JSON.stringify(res.data));
+        //         navigate("/hoje");
+        //     })
+        //     .catch((err) => {
+        //         alert(err.response.data.message);
+        //         setLoginStatus(false);
+        //     });
+    }
+
     return (
         <Page>
             <Title>MyWallet</Title>
-            <InputsLogin>
-                <input type="text" placeholder="E-mail" />
-                <input type="text" placeholder="Senha" />
-                <button>Entrar</button>
+            <InputsLogin onSubmit={sendRequest}>
+                <input
+                    placeholder="E-mail"
+                    type="email"
+                    name="email"
+                    value={loginData.email}
+                    onChange={handleInput}
+                    disabled={loginStatus}
+                    required
+                />
+                <input
+                    placeholder="Senha"
+                    type="password"
+                    name="password"
+                    value={loginData.password}
+                    onChange={handleInput}
+                    disabled={loginStatus}
+                    required
+                />
+                <button disabled={loginStatus} type="submit">
+                    {(!loginStatus) ? "Entrar" :
+                        <ThreeDots
+                            height="45"
+                            width="45"
+                            radius="9"
+                            color="#FFFFFF"
+                            ariaLabel="three-dots-loading"
+                            wrapperStyle={{}}
+                            wrapperClassName=""
+                            visible={true}
+                        />}
+                </button>
             </InputsLogin>
             <Link to="/cadastro">
                 <SignIn>Primeira vez? Cadastre-se!</SignIn>
