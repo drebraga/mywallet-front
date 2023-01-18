@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import { Link, useNavigate } from "react-router-dom";
@@ -20,17 +21,15 @@ const SignInPage = () => {
     function sendRequest(e) {
         e.preventDefault();
         setLoginStatus(true);
-        navigate("/");
-        // axios.post(`/sign-up`, signData)
-        //     .then((res) => {
-        //         setLoginStatus(false);
-        //         console.log(res.data);
-        //         navigate("/");
-        //     })
-        //     .catch((err) => {
-        //         alert(err.response.data.message);
-        //         setLoginStatus(false);
-        //     });
+        axios.post(`http://localhost:5000/signup`, signData)
+            .then((res) => {
+                setLoginStatus(false);
+                navigate("/");
+            })
+            .catch((err) => {
+                alert(err.response.data);
+                setLoginStatus(false);
+            });
     }
 
     return (

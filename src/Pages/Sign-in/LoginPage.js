@@ -28,18 +28,17 @@ const LoginPage = () => {
     function sendRequest(e) {
         e.preventDefault();
         setLoginStatus(true);
-        navigate("/home");
-        // axios.post(`${APIURL}/login`, loginData)
-        //     .then((res) => {
-        //         setLoginStatus(false);
-        //         setResLogin(res.data);
-        //         localStorage.setItem("user", JSON.stringify(res.data));
-        //         navigate("/hoje");
-        //     })
-        //     .catch((err) => {
-        //         alert(err.response.data.message);
-        //         setLoginStatus(false);
-        //     });
+        axios.post(`http://localhost:5000/login`, loginData)
+            .then((res) => {
+                setLoginStatus(false);
+                setResLogin(res.data);
+                localStorage.setItem("id", JSON.stringify(res.data));
+                navigate("/home");
+            })
+            .catch((err) => {
+                alert(err.response.data);
+                setLoginStatus(false);
+            });
     }
 
     return (
