@@ -21,7 +21,7 @@ const SignInPage = () => {
     function sendRequest(e) {
         e.preventDefault();
         setLoginStatus(true);
-        axios.post(`http://localhost:5000/signup`, signData)
+        axios.post(`${process.env.REACT_APP_API_URL}/signup`, signData)
             .then((res) => {
                 setLoginStatus(false);
                 navigate("/");

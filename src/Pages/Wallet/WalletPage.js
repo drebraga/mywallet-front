@@ -17,7 +17,7 @@ const Wallet = () => {
     const floatNumCase = 2;
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/wallet`, {
+        axios.get(`${process.env.REACT_APP_API_URL}/wallet`, {
             headers: {
                 Authorization: `Bearer ${resLogin}`
             }

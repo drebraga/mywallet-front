@@ -27,7 +27,7 @@ const LoginPage = () => {
     function sendRequest(e) {
         e.preventDefault();
         setLoginStatus(true);
-        axios.post(`http://localhost:5000/signin`, loginData)
+        axios.post(`${process.env.REACT_APP_API_URL}/signin`, loginData)
             .then((res) => {
                 setLoginStatus(false);
                 setResLogin(res.data);

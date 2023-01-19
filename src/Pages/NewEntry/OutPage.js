@@ -19,7 +19,7 @@ const OutPage = () => {
     const sendRequest = (e) => {
         e.preventDefault();
         setEntryStatus(true);
-        axios.post(`http://localhost:5000/wallet`, entry, {
+        axios.post(`${process.env.REACT_APP_API_URL}/wallet`, entry, {
             headers: {
                 Authorization: `Bearer ${resLogin}`
             }
