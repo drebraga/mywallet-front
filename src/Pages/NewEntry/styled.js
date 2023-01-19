@@ -46,6 +46,17 @@ export const Inputs = styled.form`
             color: #000000;
         }
     }
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
     button{
         width: 90%;
         height: 45px;

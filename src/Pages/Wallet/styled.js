@@ -47,25 +47,40 @@ export const List = styled.ul`
     flex-direction: column;
     font-family: 'Raleway', sans-serif;
     font-weight: 400;
-    font-size: 16px;
-    line-height: 19px;
+    font-size: ${props => props.list === 0 ? "20px" : "16px"};
+    line-height: ${props => props.list === 0 ? "23px" : "19px"};
+    justify-content: ${props => props.list === 0 ? "center" : ""};
+    align-items: ${props => props.list === 0 ? "center" : ""};
+    text-align: ${props => props.list === 0 ? "center" : ""};
+    color: ${props => props.list === 0 ? "#868686" : ""};
     li{
         margin-bottom: 10px;
     }
 `;
 
 export const Item = styled.li`
+    box-sizing:border-box;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    div{
+        display: flex;
+        justify-content: space-between;
+        width: 70%;
+    }
     p{
         color: #C6C6C6;
+        text-align: start;
+        width: 25%;
     }
     h3{
-        width: 65%;
+        width: 75%;
+        text-align: start;
     }
     h4{
-        color: green;
+        width: 20%;
+        text-align: end;
+        color: ${props => (props.type === "in") ? "#03AC00" : "#C70000"};
     }
 `;
 
@@ -80,6 +95,7 @@ export const Total = styled.div`
     font-size: 16px;
     line-height: 19px;
     p{
+        color: ${props => (props.total >= 0) ? "#03AC00" : "#C70000"};
         font-weight: 400;
     }
 `;
@@ -108,7 +124,7 @@ export const FooterButton = styled.button`
     text-align: start;
     font-family: 'Raleway', sans-serif;
     font-size: 25px;
-    padding: 20px;
+    padding: 15px;
     p{
         font-weight: 700;
         font-size: 17px;

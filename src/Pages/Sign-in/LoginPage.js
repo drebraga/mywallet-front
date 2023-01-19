@@ -14,12 +14,11 @@ const LoginPage = () => {
         email: ""
     });
 
-    // useEffect(() => {
-    //     if (resLogin !== null) {
-    //      checar se o login ainda existe!!!!
-    //          navigate("/hoje")
-    //     }
-    // }, [])
+    useEffect(() => {
+        if (resLogin !== null) {
+            navigate("/home")
+        }
+    }, [])
 
     function handleInput(e) {
         setLoginData({ ...loginData, [e.target.name]: e.target.value });
@@ -28,11 +27,11 @@ const LoginPage = () => {
     function sendRequest(e) {
         e.preventDefault();
         setLoginStatus(true);
-        axios.post(`http://localhost:5000/login`, loginData)
+        axios.post(`http://localhost:5000/signin`, loginData)
             .then((res) => {
                 setLoginStatus(false);
                 setResLogin(res.data);
-                localStorage.setItem("id", JSON.stringify(res.data));
+                localStorage.setItem("token", JSON.stringify(res.data));
                 navigate("/home");
             })
             .catch((err) => {
