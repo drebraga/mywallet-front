@@ -13,7 +13,6 @@ export const Page = styled.main`
         text-decoration: none;
     }
 `;
-
 export const Header = styled.div`
     width: 90%;
     height: 10%;
@@ -26,7 +25,6 @@ export const Header = styled.div`
     justify-content: space-between;
     align-items: center;
 `;
-
 export const WalletCard = styled.div`
     box-sizing: border-box;
     width: 90%;
@@ -39,7 +37,6 @@ export const WalletCard = styled.div`
     align-items: center;
     padding: 4%;
 `;
-
 export const List = styled.ul`
     width: 100%;
     height: 90%;
@@ -57,7 +54,6 @@ export const List = styled.ul`
         margin-bottom: 10px;
     }
 `;
-
 export const Item = styled.li`
     box-sizing:border-box;
     display: flex;
@@ -83,7 +79,6 @@ export const Item = styled.li`
         color: ${props => (props.type === "in") ? "#03AC00" : "#C70000"};
     }
 `;
-
 export const Total = styled.div`
     width: 100%;
     height: 10%;
@@ -99,7 +94,6 @@ export const Total = styled.div`
         font-weight: 400;
     }
 `;
-
 export const Footer = styled.div`
     width: 90%;
     height: 20%;
@@ -107,7 +101,6 @@ export const Footer = styled.div`
     align-items: center;
     justify-content: space-between;
 `;
-
 export const FooterButton = styled.button`
     box-sizing: border-box;
     max-width: 250px;

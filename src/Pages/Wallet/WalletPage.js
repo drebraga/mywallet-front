@@ -36,7 +36,7 @@ const Wallet = () => {
             })
             .catch((err) => {
                 alert(err.response.data);
-                navigate("/");
+                Logout();
             });
     }, []);
 

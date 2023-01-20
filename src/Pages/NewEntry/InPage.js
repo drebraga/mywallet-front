@@ -6,7 +6,7 @@ import Context from "../../components/Context/Context";
 import { Page, Title, Inputs } from "./styled"
 
 const InPage = () => {
-    const { resLogin } = useContext(Context);
+    const { resLogin, setResLogin } = useContext(Context);
 
     const [entry, setEntry] = useState({
         type: "in",
@@ -14,7 +14,7 @@ const InPage = () => {
         text: ""
     });
     const [entryStatus, setEntryStatus] = useState(false);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const sendRequest = (e) => {
         e.preventDefault();
@@ -24,14 +24,21 @@ const InPage = () => {
                 Authorization: `Bearer ${resLogin}`
             }
         })
-            .then((res) => {
+            .then(() => {
                 setEntryStatus(false);
                 navigate("/home");
             })
             .catch((err) => {
                 alert(err.response.data);
                 setEntryStatus(false);
+                Logout();
             });
+    }
+
+    function Logout() {
+        localStorage.removeItem("token");
+        setResLogin(null);
+        navigate("/");
     }
 
     function handleInput(e) {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Context from "./components/Context/Context";
-import GlobalStyle from "./GlobalStyles/Reset";
+import GlobalStyle from "./Styles/Reset";
 import InPage from "./Pages/NewEntry/InPage";
 import OutPage from "./Pages/NewEntry/OutPage";
 import LoginPage from "./Pages/Sign-in/LoginPage";

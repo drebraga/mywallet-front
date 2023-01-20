@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import { Link, useNavigate } from "react-router-dom";
@@ -18,7 +19,7 @@ const LoginPage = () => {
         if (resLogin !== null) {
             navigate("/home")
         }
-    }, [])
+    }, []);
 
     function handleInput(e) {
         setLoginData({ ...loginData, [e.target.name]: e.target.value });
