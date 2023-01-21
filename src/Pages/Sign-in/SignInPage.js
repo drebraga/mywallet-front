@@ -22,7 +22,7 @@ const SignInPage = () => {
         e.preventDefault();
         setLoginStatus(true);
         axios.post(`${process.env.REACT_APP_API_URL}/signup`, signData)
-            .then((res) => {
+            .then(() => {
                 setLoginStatus(false);
                 navigate("/");
             })

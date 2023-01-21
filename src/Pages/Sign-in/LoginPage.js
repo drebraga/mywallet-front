@@ -17,7 +17,23 @@ const LoginPage = () => {
 
     useEffect(() => {
         if (resLogin !== null) {
-            navigate("/home")
+            setLoginStatus(true);
+            axios.post(`${process.env.REACT_APP_API_URL}/signin`, {
+                headers: {
+                    Authorization: `Bearer ${resLogin}`
+                }
+            })
+                .then((res) => {
+                    setLoginStatus(false);
+                    setResLogin(res.data);
+                    localStorage.setItem("token", JSON.stringify(res.data));
+                    navigate("/home");
+                })
+                .catch((err) => {
+                    alert(err.response.data);
+                    setLoginStatus(false);
+                });
+            navigate("/home");
         }
     }, []);
 

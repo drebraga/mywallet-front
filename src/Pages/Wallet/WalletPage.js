@@ -74,7 +74,7 @@ const Wallet = () => {
                     (user.wallet.length > 0) ?
                         <Total total={total}>
                             <h3>SALDO:</h3>
-                            <p>{total.toFixed(floatNumCase)}</p>
+                            <p>{total.toFixed(floatNumCase).replace(".", ",")}</p>
                         </Total>
                         : <></>
                 }
