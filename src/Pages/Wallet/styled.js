@@ -51,7 +51,7 @@ export const List = styled.ul`
     text-align: ${props => props.list === 0 ? "center" : ""};
     color: ${props => props.list === 0 ? "#868686" : ""};
     li{
-        margin-bottom: 10px;
+        margin: 10px 0;
     }
 `;
 export const Item = styled.li`
@@ -74,9 +74,10 @@ export const Item = styled.li`
         text-align: start;
     }
     h4{
-        width: 20%;
+        width: 25%;
         text-align: end;
         color: ${props => (props.type === "in") ? "#03AC00" : "#C70000"};
+        margin-right: 10px;
     }
 `;
 export const Total = styled.div`

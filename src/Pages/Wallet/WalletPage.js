@@ -16,6 +16,7 @@ const Wallet = () => {
     const [total, setTotal] = useState(0);
     const navigate = useNavigate();
     const floatNumCase = 2;
+    const [update, setUpdate] = useState(false);
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/wallet`, {
@@ -39,12 +40,32 @@ const Wallet = () => {
                 alert(err.response.data);
                 Logout();
             });
-    }, []);
+    }, [update]);
 
     function Logout() {
         localStorage.removeItem("token");
         setResLogin(null);
         navigate("/");
+    }
+
+    function deleteItem(id) {
+        const deleteItemConfirm = window.confirm("Deseja deletar o item?");
+        if (!deleteItemConfirm) return false;
+
+        axios.delete(`${process.env.REACT_APP_API_URL}/wallet`,
+            {
+                headers: {
+                    Authorization: `Bearer ${resLogin}`,
+                    _id: `${id}`
+                }
+            })
+            .then(() => {
+                setUpdate(!update);
+            })
+            .catch((err) => {
+                alert(err.response.data);
+                Logout();
+            });
     }
 
     if (user === undefined) {
@@ -64,10 +85,16 @@ const Wallet = () => {
                             <Item key={i} type={e.type}>
                                 <div>
                                     <p>{e.date}</p>
-                                    <h3>{e.text}</h3>
+                                    <h3
+                                        onClick={() => 
+                                            navigate(`/editar-${e.type === "in" ? "entrada" : "saida"}/${e._id}`)
+                                        }
+                                    >
+                                        {e.text}
+                                    </h3>
                                 </div>
                                 <h4>{e.value.toFixed(floatNumCase).replace(".", ",")}</h4>
-                                <MdOutlineClose />
+                                <MdOutlineClose onClick={() => deleteItem(e._id)} />
                             </Item>
                         )
                     }) : <>Não há registros<br /> de entrada ou saída</>}

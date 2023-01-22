@@ -7,6 +7,8 @@ import OutPage from "./Pages/NewEntry/OutPage";
 import LoginPage from "./Pages/Sign-in/LoginPage";
 import SignInPage from "./Pages/Sign-in/SignInPage";
 import Wallet from "./Pages/Wallet/WalletPage";
+import EditInPage from "./Pages/NewEntry/EditInPage";
+import EditOutPage from "./Pages/NewEntry/EditOutPage";
 
 function App() {
   const [resLogin, setResLogin] = useState(JSON.parse(localStorage.getItem("token")));
@@ -21,6 +23,8 @@ function App() {
           <Route path="/home" element={<Wallet />} />
           <Route path="/nova-entrada" element={<InPage />} />
           <Route path="/nova-saida" element={<OutPage />} />
+          <Route path="/editar-entrada/:id" element={<EditInPage />} />
+          <Route path="/editar-saida/:id" element={<EditOutPage />} />
           <Route path="*" element={"Erro, caminho errado"} />
         </Routes>
       </Context.Provider>
