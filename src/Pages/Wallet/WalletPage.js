@@ -7,6 +7,7 @@ import Context from "../../components/Context/Context";
 import axios from "axios";
 import PageLoad from "../../components/PageLoad/PageLoad";
 import { useNavigate } from "react-router-dom";
+import { MdOutlineClose } from "react-icons/md"
 
 
 const Wallet = () => {
@@ -66,6 +67,7 @@ const Wallet = () => {
                                     <h3>{e.text}</h3>
                                 </div>
                                 <h4>{e.value.toFixed(floatNumCase).replace(".", ",")}</h4>
+                                <MdOutlineClose />
                             </Item>
                         )
                     }) : <>Não há registros<br /> de entrada ou saída</>}
