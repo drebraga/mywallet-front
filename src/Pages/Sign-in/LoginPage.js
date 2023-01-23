@@ -33,7 +33,6 @@ const LoginPage = () => {
                     alert(err.response.data);
                     setLoginStatus(false);
                 });
-            navigate("/home");
         }
     }, []);
 
