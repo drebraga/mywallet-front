@@ -1,26 +1,29 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import { useNavigate, useParams } from "react-router-dom";
 import Context from "../../components/Context/Context";
 import { Page, Title, Inputs } from "./styled"
 
-const EditInPage = () => {
-    const { id } = useParams();
-    const { resLogin, setResLogin } = useContext(Context);
+const TransactionPage = () => {
 
-    const [entry, setEntry] = useState({
-        value: "",
-        text: "",
-        _id: id
-    });
+    const { route, id } = useParams();
+    const { resLogin, setResLogin } = useContext(Context);
+    const [routeType, entryType] = route.split("-");
     const [entryStatus, setEntryStatus] = useState(false);
     const navigate = useNavigate();
 
-    const sendRequest = (e) => {
+    const [entry, setEntry] = useState({
+        value: "",
+        text: ""
+    });
+
+    const sendEditRequest = (e) => {
         e.preventDefault();
         setEntryStatus(true);
-        axios.put(`${process.env.REACT_APP_API_URL}/wallet`, entry, {
+        const request = { ...entry, _id: id };
+        axios.put(`${process.env.REACT_APP_API_URL}/wallet`, request, {
             headers: {
                 Authorization: `Bearer ${resLogin}`
             }
@@ -36,20 +39,63 @@ const EditInPage = () => {
             });
     }
 
-    function Logout() {
+    const sendRequest = (e) => {
+        e.preventDefault();
+        setEntryStatus(true);
+        const type = entryType === "entrada" ? "in" : "out";
+        const request = { ...entry, type: type };
+        axios.post(`${process.env.REACT_APP_API_URL}/wallet`, request, {
+            headers: {
+                Authorization: `Bearer ${resLogin}`
+            }
+        })
+            .then(() => {
+                setEntryStatus(false);
+                navigate("/home");
+            })
+            .catch((err) => {
+                alert(err.response.data);
+                setEntryStatus(false);
+                Logout();
+            });
+    }
+
+    const Logout = () => {
         localStorage.removeItem("token");
         setResLogin(null);
         navigate("/");
     }
 
-    function handleInput(e) {
+    const handleInput = (e) => {
         setEntry({ ...entry, [e.target.name]: e.target.value });
     }
 
+    const getTransaction = () => {
+        axios.get(`${process.env.REACT_APP_API_URL}/wallet/${id}`, {
+            headers: {
+                Authorization: `Bearer ${resLogin}`
+            }
+        })
+            .then((res) => {
+                const transaction = res.data.filter(e => e._id === id);
+                setEntry({
+                    value: transaction[0].value,
+                    text: transaction[0].text
+                })
+            })
+            .catch((err) => {
+                alert(err.response.data);
+                Logout();
+            });
+    }
+    useEffect(() => {
+        if (id) getTransaction();
+    }, [])
+
     return (
         <Page>
-            <Title>Editar entrada</Title>
-            <Inputs onSubmit={sendRequest}>
+            <Title>{routeType === "nova" ? "Nova" : "Editar"} {entryType}</Title>
+            <Inputs onSubmit={routeType === "nova" ? sendRequest : sendEditRequest}>
                 <input
                     type="number"
                     step="0.01"
@@ -73,7 +119,7 @@ const EditInPage = () => {
                     disabled={entryStatus}
                     type="submit"
                 >
-                    {(!entryStatus) ? "Atualizar entrada" :
+                    {(!entryStatus) ? `${routeType === "nova" ? "Salvar" : "Atualizar"} ${entryType}` :
                         <ThreeDots
                             height="45"
                             width="45"
@@ -90,4 +136,4 @@ const EditInPage = () => {
     );
 }
 
-export default EditInPage;
+export default TransactionPage;
