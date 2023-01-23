@@ -18,7 +18,7 @@ const LoginPage = () => {
     useEffect(() => {
         if (resLogin !== null) {
             setLoginStatus(true);
-            axios.post(`${process.env.REACT_APP_API_URL}/signin`, {
+            axios.get(`${process.env.REACT_APP_API_URL}/signin`, {
                 headers: {
                     Authorization: `Bearer ${resLogin}`
                 }
